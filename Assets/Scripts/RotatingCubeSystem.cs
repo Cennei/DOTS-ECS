@@ -20,6 +20,8 @@ public partial struct RotatingCubeSystem : ISystem
 
     public void OnUpdate(ref SystemState state) 
     {
+        state.Enabled = false;
+        return;
         /*
         foreach (var ( localTransform, rotateSpeed) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<RotateSpeed>>()) //RefRW means Read and Write (RefRO for Read only)
         {
@@ -36,6 +38,7 @@ public partial struct RotatingCubeSystem : ISystem
     }
 
     [BurstCompile]
+    [WithAll(typeof(RotatingCube))]
     public partial struct RotatingCubeJob : IJobEntity
     {
         public float deltaTime;
